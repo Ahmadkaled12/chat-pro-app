@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>الكاميرا</title>
+</head>
+<body>
+
+<h2>تشغيل الكاميرا</h2>
+
+<video autoplay playsinline width="300"></video>
+
+<script>
+navigator.mediaDevices.getUserMedia({ video: true })
+.then(stream => {
+  document.querySelector("video").srcObject = stream;
+})
+.catch(err => {
+  alert("لم يتم تشغيل الكاميرا: " + err);
+});
+</script>
+
+</body>
+</html>
