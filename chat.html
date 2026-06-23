@@ -1,0 +1,28 @@
+<input id="msg">
+<button onclick="send()">إرسال</button>
+
+<ul id="box"></ul>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import {
+getFirestore, collection, addDoc, onSnapshot
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.send = async function(){
+  await addDoc(collection(db,"messages"),{
+    text: msg.value,
+    time: Date.now()
+  });
+}
+
+onSnapshot(collection(db,"messages"), (snap)=>{
+  box.innerHTML="";
+  snap.forEach(d=>{
+    box.innerHTML += `<li>${d.data().text}</li>`;
+  });
+});
+</script>
